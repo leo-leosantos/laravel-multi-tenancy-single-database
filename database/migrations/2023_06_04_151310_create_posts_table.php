@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->text('body');
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
