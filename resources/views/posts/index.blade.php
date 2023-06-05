@@ -3,6 +3,9 @@
 
 @section('content')
 
+
+@include('posts._alerts.alerts')
+
     @forelse($posts as $post)
         <p>{{ $post->title }}</p>
         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Editar</a>

@@ -64,7 +64,7 @@ class PostController extends Controller
             $data
          );
 
-         return redirect()->back()->withSuccess('post Cadastrado com sucesso');
+         return redirect()->route('posts.index')->withSuccess('post Cadastrado com sucesso');
     }
 
     /**
