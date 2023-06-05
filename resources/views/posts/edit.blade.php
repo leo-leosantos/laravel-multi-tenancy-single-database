@@ -5,7 +5,7 @@
 
 
 
-<h1>Cadastrar Post</h1>
+<h1>Editar Post</h1>
 
 
 @if($errors->any())
@@ -22,26 +22,26 @@
            {{ session('success') }}
         </div>
 @endif
-<form action="{{ route('posts.store') }}" method="post">
+<form action="{{ route('posts.update', $post->id) }}" method="post">
     @csrf
-
+    @method('PUT')
 
     <div class="form-group">
-        <input class="form-control" type="text" name="title"  placeholder="title">
+        <input class="form-control" type="text" name="title"  value="{{ $post->title }}">
 
     </div>
 
     <div class="form-group">
 
         <textarea class="form-control"  name="body" id="" cols="30" rows="10">
-
+            {{ $post->body }}
         </textarea>
     </div>
 
     <div class="form-group">
 
 
-        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <button type="submit" class="btn btn-danger">Editar</button>
     </div>
 </form>
 @endsection

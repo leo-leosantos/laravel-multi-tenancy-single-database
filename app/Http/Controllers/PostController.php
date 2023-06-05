@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePostFormRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    private $post;
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
+        $posts = $this->post->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -35,14 +42,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePostFormRequest $request)
     {
-
-         $post = $request->user()->posts()->create([
+         $post = $request->user()->posts()->create(
             $request->all()
-         ]);
+         );
 
-         dd($post);
          return redirect()->back()->withSuccess('post Cadastrado com sucesso');
     }
 
@@ -65,7 +70,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $post = $this->post->find($id);
+
+        return view('posts.edit', compact('post'));
+
     }
 
     /**
@@ -75,9 +84,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePostFormRequest $request, $id)
     {
-        //
+        $post = $this->post->find($id);
+        $post->update($request->all());
+        return redirect()->back()->withSuccess('post Editado com sucesso');
+
     }
 
     /**
