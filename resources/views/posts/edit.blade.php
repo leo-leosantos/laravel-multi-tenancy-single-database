@@ -22,7 +22,7 @@
            {{ session('success') }}
         </div>
 @endif
-<form action="{{ route('posts.update', $post->id) }}" method="post">
+<form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -30,7 +30,10 @@
         <input class="form-control" type="text" name="title"  value="{{ $post->title }}">
 
     </div>
+    <div class="form-group">
+        <input class="form-control" type="file" name="image">
 
+    </div>
     <div class="form-group">
 
         <textarea class="form-control"  name="body" id="" cols="30" rows="10">
